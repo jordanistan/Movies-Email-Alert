@@ -13,7 +13,7 @@ This project is meant to make a schedulable Python script that will send you an 
 ## Getting Started
 
 1. In the source code, replace the AMC link with the link of your local AMC theater on the page after you click "find your tickets" and where the option at the top has a drop down "all movies"
-2. Change the value on line 128 with your email address:
+2. Change the value on line 139 with your email address:
     ```msg["to"] = "youremail@gmail.com"```
 3. Retrieve your gmail's API username and password and modify the .env file with your credentials
     ```ACC_USERNAME='youremail@gmail.com'```
