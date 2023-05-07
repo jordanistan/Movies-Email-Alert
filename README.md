@@ -14,7 +14,8 @@ This project is meant to make a schedulable Python script that will send you an 
 
 1. In the source code, replace the AMC link with the link of your local AMC theater on the page after you click "find your tickets" and where the option at the top has a drop down "all movies"
 2. Change the value on line 128 with your email address
-3. Retrieve your gmail's API username and password and modify the .env file with your credentials.
+3. Retrieve your gmail's API username and password and modify the .env file with your credentials
+4. Replace the path in the service variable to the path of your chromedriver.exe
 
 Files:
 * movies.py - this is the main Python file.
@@ -24,13 +25,14 @@ Files:
 ### Prerequisites
 
 * Python 3.11.1
-* Visual Studio Code
 * Gmail account
 * Gmail API key
+* Chrome driver 
 * Libraries installed from requirements.txt
 
 ### Installation
 
 1. Download the movies.py, .env, and requirements.txt files in a new project folder
 2. Download the required libraries to run this script by running this command ```pip install -r requirements.txt``` in your terminal in Visual Studio Code
-3. If you are on Windows, use Task Scheduler to schedule this script to run on a desired recurrence
+3. Download the chrome driver version that matches your google chrome version by going to https://chromedriver.chromium.org/downloads
+4. If you are on Windows, use Task Scheduler to schedule this script to run on a desired recurrence
