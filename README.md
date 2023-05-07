@@ -13,10 +13,16 @@ This project is meant to make a schedulable Python script that will send you an 
 ## Getting Started
 
 1. In the source code, replace the AMC link with the link of your local AMC theater on the page after you click "find your tickets" and where the option at the top has a drop down "all movies"
-2. Change the value on line 128 with your email address
+2. Change the value on line 128 with your email address:
+    ```msg["to"] = "youremail@gmail.com"```
 3. Retrieve your gmail's API username and password and modify the .env file with your credentials
+    ```ACC_USERNAME='youremail@gmail.com'
+       PASSWORD=yourpassword```
 4. Replace the path in the service variable to the path of your chromedriver.exe
-
+    ```service = pathlib.Path(
+        r"C:\Users\kevin\OneDrive\Documents\Python\Web Scraping\chromedriver_win32\chromedriver.exe"
+    )```
+    
 Files:
 * movies.py - this is the main Python file.
 * .env - this is used by dotenv library to pass environment variables of your gmail username and password into the movies.py file.
