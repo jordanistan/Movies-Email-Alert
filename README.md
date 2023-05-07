@@ -17,6 +17,7 @@ This project is meant to make a schedulable Python script that will send you an 
     ```msg["to"] = "youremail@gmail.com"```
 3. Retrieve your gmail's API username and password and modify the .env file with your credentials
     ```ACC_USERNAME='youremail@gmail.com'```
+    
     ```PASSWORD=yourpassword```
 4. Replace the path in the service variable to the path of your chromedriver.exe
 
