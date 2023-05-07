@@ -19,9 +19,6 @@ This project is meant to make a schedulable Python script that will send you an 
     ```ACC_USERNAME='youremail@gmail.com'```
     
     ```PASSWORD=yourpassword```
-4. Replace the path in the service variable to the path of your chromedriver.exe
-
-    ```service = pathlib.Path(r"C:\Users\kevin\OneDrive\Documents\Python\Web Scraping\chromedriver_win32\chromedriver.exe")```
 
 Files:
 * movies.py - this is the main Python file.
@@ -33,12 +30,11 @@ Files:
 * Python 3.11.1
 * Gmail account
 * Gmail API key
-* Chrome driver 
+* Chrome web browser
 * Libraries installed from requirements.txt
 
 ### Installation
 
 1. Download the movies.py, .env, and requirements.txt files in a new project folder
 2. Download the required libraries to run this script by running this command ```pip install -r requirements.txt``` in your IDE
-3. Download the chrome driver version that matches your google chrome version by going to https://chromedriver.chromium.org/downloads
-4. If you are on Windows, use Task Scheduler to schedule this script to run on a desired recurrence
+3. If you are on Windows, use Task Scheduler to schedule this script to run on a desired recurrence

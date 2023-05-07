@@ -1,5 +1,4 @@
 import os
-import pathlib
 import smtplib
 from email.message import EmailMessage
 
@@ -8,15 +7,25 @@ from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
 
 
-def amc_movies_alert(amc_theater_link: str, imdb_link: str, service: pathlib):
-    """Main function for getting the list of new movies and emailing
-    yourself a list of movies with an IMDB rating of >= 7.0"""
+def amc_movies_alert(amc_theater_link: str, imdb_link: str):
+    """Main function to send email of movies, ratings, and descriptions
+
+    Web scrape AMC and IMDB links and email
+    yourself a list of movies with an IMDB rating of >= 7.0
+
+    Parameters
+    ------------
+        amc_theater_link: str
+            The link to your local AMC theater
+        imdb_link: str
+            The link to IMDB's homepage
+    """
     # get the driver for chrome browser
-    driver = get_driver(service)
+    driver = get_driver()
 
     # open AMC link first and scrape a list of all movies from the dropdown
     movies = get_amc_movies(driver, amc_theater_link)
@@ -27,13 +36,11 @@ def amc_movies_alert(amc_theater_link: str, imdb_link: str, service: pathlib):
     send_email_alert(movie_dict)
 
 
-def get_driver(service: pathlib) -> webdriver:
+def get_driver() -> webdriver:
     options = Options()
     options.add_experimental_option("detach", True)
     options.add_argument("--start-maximized")
-    # options.add_argument("--headless")
-    service = Service(f"{service}")
-    driver = webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     return driver
 
 
@@ -129,7 +136,7 @@ def send_email_alert(movie_dict: dict):
     msg = EmailMessage()
     msg.add_alternative(movies_text, subtype="html")
     msg["subject"] = "Movie Ratings and Descriptions"
-    msg["to"] = "youremail@gmail.com"
+    msg["to"] = "kevinagbulos09@gmail.com"
     msg["from"] = username
 
     # send email
@@ -145,7 +152,4 @@ if __name__ == "__main__":
         r"https://www.amctheatres.com/showtimes/all/2023-05-05/amc-broadstreet-7/all"
     )
     imdb_link = r"https://www.imdb.com/"
-    service = pathlib.Path(
-        r"C:\Users\kevin\OneDrive\Documents\Python\Web Scraping\chromedriver_win32\chromedriver.exe"
-    )
-    amc_movies_alert(amc_theater_link, imdb_link, service)
+    amc_movies_alert(amc_theater_link, imdb_link)
