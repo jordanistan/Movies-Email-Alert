@@ -12,9 +12,9 @@ This project is meant to make a schedulable Python script that will send you an 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-In the source code, replace the AMC link with the link of your local AMC theater on the page after you click "find your tickets" and where the option at the top has a drop down "all movies".
-
-Retrieve your gmail's API username and password and modify the .env file with your credentials.
+1. In the source code, replace the AMC link with the link of your local AMC theater on the page after you click "find your tickets" and where the option at the top has a drop down "all movies".
+2. Change the value on line 128 with your email address
+3. Retrieve your gmail's API username and password and modify the .env file with your credentials.
 
 Files:
 * movies.py - this is the main Python file.
@@ -31,4 +31,6 @@ Files:
 
 ### Installation
 
-Download the movies.py and .env files in a new project folder. In order to download the required libraries to run this script, you can run this command ```pip install -r requirements.txt``` in your terminal in Visual Studio Code.
+1. Download the movies.py, .env, and requirements.txt files in a new project folder
+2. Download the required libraries to run this script by running this command ```pip install -r requirements.txt``` in your terminal in Visual Studio Code
+3. If you are on Windows, use Task Scheduler to schedule this script to run on a desired recurrence
