@@ -1,32 +1,33 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
-from bs4 import BeautifulSoup
+import os
+import pathlib
 import smtplib
 from email.message import EmailMessage
-import os
+
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
+from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
 
 
-def amc_movies_alert(AMC_THEATER_LINK, IMDB_LINK, service):
-    """Main function for getting the list of new movies and emailing yourself a list of movies with an IMDB rating of >= 7.0"""
+def amc_movies_alert(amc_theater_link: str, imdb_link: str, service: pathlib):
+    """Main function for getting the list of new movies and emailing
+    yourself a list of movies with an IMDB rating of >= 7.0"""
     # get the driver for chrome browser
     driver = get_driver(service)
 
     # open AMC link first and scrape a list of all movies from the dropdown
-    movies = get_amc_movies(driver, AMC_THEATER_LINK)
+    movies = get_amc_movies(driver, amc_theater_link)
 
-    # get the ratings and descriptions of each movie
-    movie_dict = get_imdb_data(movies, driver, IMDB_LINK)
+    # get the ratings and descriptions of each movie in a dict
+    movie_dict = get_imdb_data(movies, driver, imdb_link)
 
-    # send email
     send_email_alert(movie_dict)
 
 
-def get_driver(service):
+def get_driver(service: pathlib) -> webdriver:
     options = Options()
     options.add_experimental_option("detach", True)
     options.add_argument("--start-maximized")
@@ -36,8 +37,8 @@ def get_driver(service):
     return driver
 
 
-def get_amc_movies(driver, AMC_THEATER_LINK):
-    driver.get(f"{AMC_THEATER_LINK}")
+def get_amc_movies(driver: webdriver, amc_theater_link: str) -> list:
+    driver.get(f"{amc_theater_link}")
     movie_dropdown = driver.find_element(By.ID, "showtimes-movie-title-filter")
     to_remove = ["All Movies", ""]
     # only grab the movies that don't have the above filter
@@ -53,18 +54,20 @@ def get_amc_movies(driver, AMC_THEATER_LINK):
         # not 'guardians of the galaxy vol 3: private theater rental'
         if i == 0 or not movies[i].startswith(
             movies[i - 1]
-        ):  # This checks whether the current movie's name does not start with the name of the previous movie in the list
+        ):  # This checks whether the current movie's name does not start
+            # with the name of the previous movie in the list
             filtered_movies.append(movies[i])
     return filtered_movies
 
 
-def get_imdb_data(movies, driver, IMDB_LINK):
+def get_imdb_data(movies: list, driver: webdriver, imdb_link: str) -> dict:
     # open a new tab for IMDB link
-    driver.execute_script("window.open('{}');".format(IMDB_LINK))
+    driver.execute_script("window.open('{}');".format(imdb_link))
     window_after = driver.window_handles[1]
     driver.switch_to.window(window_after)
 
-    # create empty dictionary to store movie as key and rating/description as list of values
+    # create empty dictionary to store
+    # movie as key and rating/description as list of values
     movie_dict = {}
     # loop through each movie and scrape the rating and description
     for movie in movies:
@@ -78,7 +81,8 @@ def get_imdb_data(movies, driver, IMDB_LINK):
             search_button = driver.find_element(By.ID, "suggestion-search-button")
             search_button.click()
 
-            # loop through each search result element and check if the title of the movie matches
+            # loop through each search result element
+            # and check if the title of the movie matches
             for result in driver.find_elements(
                 By.CLASS_NAME, "ipc-metadata-list-summary-item__t"
             ):
@@ -106,7 +110,7 @@ def get_imdb_data(movies, driver, IMDB_LINK):
     return movie_dict
 
 
-def send_email_alert(movie_dict):
+def send_email_alert(movie_dict: dict):
     # Load the environment variables from the .env file
     load_dotenv()
     username = os.getenv("ACC_USERNAME")
@@ -137,9 +141,11 @@ def send_email_alert(movie_dict):
 
 
 if __name__ == "__main__":
-    AMC_THEATER_LINK = (
+    amc_theater_link = (
         r"https://www.amctheatres.com/showtimes/all/2023-05-05/amc-broadstreet-7/all"
     )
-    IMDB_LINK = r"https://www.imdb.com/"
-    service = r"C:\Users\kevin\OneDrive\Documents\Python\Web Scraping\chromedriver_win32\chromedriver.exe"
-    amc_movies_alert(AMC_THEATER_LINK, IMDB_LINK, service)
+    imdb_link = r"https://www.imdb.com/"
+    service = pathlib.Path(
+        r"C:\Users\kevin\OneDrive\Documents\Python\Web Scraping\chromedriver_win32\chromedriver.exe"
+    )
+    amc_movies_alert(amc_theater_link, imdb_link, service)
