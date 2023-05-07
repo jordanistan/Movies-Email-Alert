@@ -136,7 +136,7 @@ def send_email_alert(movie_dict: dict):
     msg = EmailMessage()
     msg.add_alternative(movies_text, subtype="html")
     msg["subject"] = "Movie Ratings and Descriptions"
-    msg["to"] = "kevinagbulos09@gmail.com"
+    msg["to"] = "youremail@gmail.com"
     msg["from"] = username
 
     # send email
