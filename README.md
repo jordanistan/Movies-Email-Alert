@@ -12,7 +12,7 @@ This project is meant to make a schedulable Python script that will send you an 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-1. In the source code, replace the AMC link with the link of your local AMC theater on the page after you click "find your tickets" and where the option at the top has a drop down "all movies".
+1. In the source code, replace the AMC link with the link of your local AMC theater on the page after you click "find your tickets" and where the option at the top has a drop down "all movies"
 2. Change the value on line 128 with your email address
 3. Retrieve your gmail's API username and password and modify the .env file with your credentials.
 
