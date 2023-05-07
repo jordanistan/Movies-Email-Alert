@@ -11,7 +11,7 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-def amc_movies_alert(amc_theater_link: str, imdb_link: str):
+def amc_movies_alert(amc_theater_link: str, imdb_link: str) -> None:
     """Main function to send email of movies, ratings, and descriptions
 
     Web scrape AMC and IMDB links and email
@@ -25,7 +25,7 @@ def amc_movies_alert(amc_theater_link: str, imdb_link: str):
             The link to IMDB's homepage
     """
     # get the driver for chrome browser
-    driver = get_driver()
+    driver = get_chrome_webdriver
 
     # open AMC link first and scrape a list of all movies from the dropdown
     movies = get_amc_movies(driver, amc_theater_link)
@@ -36,7 +36,11 @@ def amc_movies_alert(amc_theater_link: str, imdb_link: str):
     send_email_alert(movie_dict)
 
 
-def get_driver() -> webdriver:
+def get_chrome_webdriver() -> webdriver:
+    """Create chrome webdriver using selenium to web scrape AMC and IMDB links
+
+    Return a webdriver
+    """
     options = Options()
     options.add_experimental_option("detach", True)
     options.add_argument("--start-maximized")
@@ -45,6 +49,10 @@ def get_driver() -> webdriver:
 
 
 def get_amc_movies(driver: webdriver, amc_theater_link: str) -> list:
+    """Scrape a list of movies from the 'all movies" dropdown on AMC's website
+
+    Return a list
+    """
     driver.get(f"{amc_theater_link}")
     movie_dropdown = driver.find_element(By.ID, "showtimes-movie-title-filter")
     to_remove = ["All Movies", ""]
@@ -68,6 +76,10 @@ def get_amc_movies(driver: webdriver, amc_theater_link: str) -> list:
 
 
 def get_imdb_data(movies: list, driver: webdriver, imdb_link: str) -> dict:
+    """Scrape the IMDB rating and description for each movie.
+
+    Return a dictionary
+    """
     # open a new tab for IMDB link
     driver.execute_script("window.open('{}');".format(imdb_link))
     window_after = driver.window_handles[1]
@@ -100,7 +112,7 @@ def get_imdb_data(movies: list, driver: webdriver, imdb_link: str) -> dict:
         except NoSuchElementException:
             pass
 
-        # make soup from the page source
+        # get the page_source and parse the HTML using BeautifulSoup
         page_source = driver.page_source
         soup = BeautifulSoup(page_source, "html.parser")
 
@@ -117,7 +129,8 @@ def get_imdb_data(movies: list, driver: webdriver, imdb_link: str) -> dict:
     return movie_dict
 
 
-def send_email_alert(movie_dict: dict):
+def send_email_alert(movie_dict: dict) -> None:
+    """Send email using movie_dict to construct message"""
     # Load the environment variables from the .env file
     load_dotenv()
     username = os.getenv("ACC_USERNAME")
@@ -125,10 +138,11 @@ def send_email_alert(movie_dict: dict):
 
     # Format the values as a string with line breaks and paragraphs
     movies_text = ""
+    MOVIE_RATING_THRESHOLD = 7.0
     for movie, values in movie_dict.items():
         rating, description = values
         # only grab movies that have an IMDB rating of 7 or higher
-        if float(rating) >= 7.0:
+        if float(rating) >= MOVIE_RATING_THRESHOLD:
             movie_text = f"<p><b>{movie}:</b></p><p>IMDB Rating: {rating}</p><p>Description: {description}</p>"
             movies_text += movie_text
 
