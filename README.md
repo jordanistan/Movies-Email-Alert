@@ -11,9 +11,9 @@ This project is meant to make a schedulable Python script that will send you an 
 ## Getting Started
 
 1. Create a gmail API key that bypasses 2 factor authentication. Watch the video below on how to do that:
-https://www.youtube.com/watch?v=g_j6ILT-X0k
+    https://www.youtube.com/watch?v=g_j6ILT-X0k
 
-Use the password in the next step in the .env file for configuration.
+    Use the password in the next step in the .env file for configuration.
 
 2. Configure the .env file according to your parameters:
 
