@@ -14,6 +14,7 @@ This project is meant to make a schedulable Python script that will send you an 
 https://www.youtube.com/watch?v=g_j6ILT-X0k
 
 Use the password in the next step in the .env file for configuration.
+
 2. Configure the .env file according to your parameters:
 
     ```ACC_USERNAME='your_email@gmail.com'```
