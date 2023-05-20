@@ -4,7 +4,7 @@
 This project is meant to make a schedulable Python script that will send you an email alert through gmail of the newest movies from your local AMC theater with an IMDB rating of 7.0 or higher.
 
 Example of what the email result would look like:
-![Alt text](/relative/path/to/img.jpg?raw=true)
+![Alt text](https://github.com/agbulosk/Movies-Email-Alert/blob/master/example.jpg?raw=true)
 
 ### Built With
 
