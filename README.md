@@ -20,11 +20,11 @@ Example of what the email result would look like:
 
 2. Configure the .env file according to your parameters:
 
-    ```ACC_USERNAME='your_email@gmail.com'```
+    ```ACC_USERNAME="your_email@gmail.com"```
 
     ```PASSWORD=your_password```
 
-    ```RECIPIENT_EMAIL="your_recipient_email""```
+    ```RECIPIENT_EMAIL="your_recipient_email"```
 
     ```AMC_LINK="your_local_amc_link"```
 
