@@ -27,7 +27,7 @@ def amc_movies_alert(
             The link to IMDB's homepage
     """
     # get the driver for chrome browser
-    driver = get_chrome_webdriver
+    driver = get_chrome_webdriver()
 
     # open AMC link first and scrape a list of all movies from the dropdown
     movies = get_amc_movies(driver, amc_theater_link)
@@ -123,7 +123,7 @@ def get_imdb_data(movies: list, driver: webdriver, imdb_link: str) -> dict:
         try:
             rating = soup.find("span", {"class": "sc-bde20123-1 iZlgcd"}).text.strip()
             description = soup.find(
-                "span", {"class": "sc-5f699a2-0 kcphyk"}
+                "span", {"class": "sc-2eb29e65-0 hOntMS"}
             ).text.strip()
             movie_dict[movie] = [rating, description]
         except AttributeError:

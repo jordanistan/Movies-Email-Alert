@@ -10,14 +10,12 @@ This project is meant to make a schedulable Python script that will send you an 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-1. Configure the .env file according to your parameters:
-
+1. Create a gmail API key that bypasses 2 factor authentication. Watch the video below on how to do that:
+https://www.youtube.com/watch?v=g_j6ILT-X0k
+2. Configure the .env file according to your parameters:
     ```ACC_USERNAME='your_email@gmail.com'```
-
     ```PASSWORD=your_password```
-
     ```RECIPIENT_EMAIL="your_recipient_email""```
-
     ```AMC_LINK="your_local_amc_link"```
 
 Files:
