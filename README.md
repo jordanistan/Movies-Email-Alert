@@ -30,7 +30,7 @@ Example of what the email result would look like:
 
 Files:
 * movies.py - this is the main Python file.
-* .env - this is used by dotenv library to pass environment variables of your gmail username and password, recipient eamil address, and your local AMC theater link into the movies.py file.
+* .env - this is used by dotenv library to pass environment variables of your gmail username and password, recipient email address, and your local AMC theater link into the movies.py file.
 * requirements.txt - this contains a list of libraries and their versions which you'll need installed in order to run movies.py.
 
 ### Prerequisites
