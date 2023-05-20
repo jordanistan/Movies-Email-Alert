@@ -11,7 +11,9 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-def amc_movies_alert(amc_theater_link: str, imdb_link: str) -> None:
+def amc_movies_alert(
+    amc_theater_link: str, imdb_link: str = r"https://www.imdb.com/"
+) -> None:
     """Main function to send email of movies, ratings, and descriptions
 
     Web scrape AMC and IMDB links and email
@@ -33,6 +35,7 @@ def amc_movies_alert(amc_theater_link: str, imdb_link: str) -> None:
     # get the ratings and descriptions of each movie in a dict
     movie_dict = get_imdb_data(movies, driver, imdb_link)
 
+    # send email to desired recipient using movie_dict
     send_email_alert(movie_dict)
 
 
@@ -135,6 +138,7 @@ def send_email_alert(movie_dict: dict) -> None:
     load_dotenv()
     username = os.getenv("ACC_USERNAME")
     password = os.getenv("PASSWORD")
+    recipient_email = os.getenv("RECIPIENT_EMAIL")
 
     # Format the values as a string with line breaks and paragraphs
     movies_text = ""
@@ -150,7 +154,7 @@ def send_email_alert(movie_dict: dict) -> None:
     msg = EmailMessage()
     msg.add_alternative(movies_text, subtype="html")
     msg["subject"] = "Movie Ratings and Descriptions"
-    msg["to"] = "youremail@gmail.com"
+    msg["to"] = recipient_email
     msg["from"] = username
 
     # send email
@@ -162,8 +166,5 @@ def send_email_alert(movie_dict: dict) -> None:
 
 
 if __name__ == "__main__":
-    amc_theater_link = (
-        r"https://www.amctheatres.com/showtimes/all/2023-05-05/amc-broadstreet-7/all"
-    )
-    imdb_link = r"https://www.imdb.com/"
-    amc_movies_alert(amc_theater_link, imdb_link)
+    amc_theater_link: str = rf"{os.getenv('AMC_LINK')}"
+    amc_movies_alert(amc_theater_link, imdb_link=r"https://www.imdb.com/")

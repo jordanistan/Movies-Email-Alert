@@ -3,26 +3,22 @@
 
 This project is meant to make a schedulable Python script that will send you an email alert through gmail of the newest movies from your local AMC theater with an IMDB rating of 7.0 or higher.
 
-
 ### Built With
 
 * Python
 
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
-1. In the source code, replace the AMC link with the link of your local AMC theater on the page after you click "find your tickets" and where the option at the top has a drop down "all movies"
-2. Change the value on line 139 with your email address:
-    ```msg["to"] = "youremail@gmail.com"```
-3. Retrieve your gmail's API username and password and modify the .env file with your credentials
-    ```ACC_USERNAME='youremail@gmail.com'```
-    
-    ```PASSWORD=yourpassword```
+1. Configure the .env file according to your parameters:
+    ```ACC_USERNAME='your_email@gmail.com'```
+    ```PASSWORD=your_password```
+    ```RECIPIENT_EMAIL="your_recipient_email""```
+    ```AMC_LINK="your_local_amc_link"```
 
 Files:
 * movies.py - this is the main Python file.
-* .env - this is used by dotenv library to pass environment variables of your gmail username and password into the movies.py file.
+* .env - this is used by dotenv library to pass environment variables of your gmail username and password, recipient eamil address, and your local AMC theater link into the movies.py file.
 * requirements.txt - this contains a list of libraries and their versions which you'll need installed in order to run movies.py.
 
 ### Prerequisites
