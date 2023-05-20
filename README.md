@@ -11,12 +11,13 @@ This project is meant to make a schedulable Python script that will send you an 
 ## Getting Started
 
 1. Configure the .env file according to your parameters:
+
     ```ACC_USERNAME='your_email@gmail.com'```
 
     ```PASSWORD=your_password```
 
     ```RECIPIENT_EMAIL="your_recipient_email""```
-    
+
     ```AMC_LINK="your_local_amc_link"```
 
 Files:
